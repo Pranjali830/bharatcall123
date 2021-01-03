@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>BharatCall</title>
+   <link href="project_images/favcon.png" rel="icon">
+   <link rel="stylesheet" href="css/plugins.css">
+   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/yellow.css">
+   <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <!-- Counter API -->
+   <script>
+      // Page view 
+      $.get("https://staging.bharatcall.com/api/userManagement/getPageVisits", function (pageview) {
+         var pagecount = JSON.stringify(pageview.result.no_of_visits);
+         $("#visit_count").text(pagecount);
+      });
+      // Registered user
+      $.get("https://staging.bharatcall.com/api/userManagement/getUserCount", function (data) {
+         var reg_count = JSON.stringify(data.result);
+         $("#registered_count").text(reg_count);
+      });      
+   </script>
+   <!-- Contact us -->
+   <script>
+      $(document).ready(function () {
+         $("#submit_btn").click(function () {
+            var user_name = $('input[name=first_name]').val() + ' ' + $('input[name=last_name]').val();
+            var user_email = $('input[name=email]').val();
+            var user_phone = $('input[name=phone]').val();
+            var organisation_name = $('input[name=organisation_name]').val();
+            var user_message = $('textarea[name=message]').val();
+
+            //simple validation at client's end
+            var output;
+            var proceed = true;
+            if (user_name == "") {
+               proceed = false;
+            }
+            if (user_email == "") {
+               proceed = false;
+            }
+            if (user_phone == "") {
+               proceed = false;
+            }
+            if (organisation_name == "") {
+               proceed = false;
+            }
+            if (user_message == "") {
+               proceed = false;
+            }
+            if (proceed) {
+               $.post("https://dev.bharatcall.com/api/userManagement/sendEmail",
+                  {
+                     'name': user_name,
+                     'email': user_email,
+                     'phone': user_phone,
+                     'orgName': organisation_name,
+                     'message': user_message
+                  },
+                  function (messages, status) {
+                     var msg = messages['message'];
+                     if (status == 'success') {
+                        output = '<div class="alert-success" style="padding:10px; margin-bottom:25px;">' + msg + '</div>';
+                        //reset values in all input fields
+                        $('.getin_form input').val('');
+                        $('.getin_form textarea').val('');
+                     }
+                     else {
+                        output = '<div class="alert-danger" style="padding:10px; margin-bottom:25px;">' + msg + '</div>';
+                        //reset values in all input fields
+                        $('.getin_form input').val('');
+                        $('.getin_form textarea').val('');
+                     }
+                     $("#result").hide().html(output).slideDown();
+                  });
+            }
+            else {
+               output = '<div class="alert-danger" style="padding:10px; margin-bottom:25px;">Please provide the missing fields.</div>';
+               $("#result").hide().html(output).slideDown();
+            }
+         });
+      });
+   </script>
+
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="90">
+   <!-- header -->
+
+   <!-- header -->
+   <header class="site-header">
+      <nav class="navbar navbar-expand-lg bg-white static-nav transparent-sidemenu">
+         <div class="container">
+            <a class="navbar-brand" href="index.html">
+               <img src="project_images/logo.png" alt="logo">
+            </a>
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
+               data-target="#xenav">
+               <span> </span>
+               <span> </span>
+               <span> </span>
+            </button>
+            <div class="collapse navbar-collapse" id="xenav">
+               <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active">
+                     <a class="nav-link" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#how-it-works">How It Works</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#our-pricings">Plan</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#our-apps">Download</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#our-blog">Blogs</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#aboutus">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#contactus">contact</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+
+      <!-- side menu -->
+      <div class="side-menu">
+         <div class="inner-wrapper">
+            <span class="btn-close" id="btn_sideNavClose"><i></i><i></i></span>
+            <nav class="side-nav">
+               <ul class="navbar-nav w-100">
+                  <li class="nav-item active">
+                     <a class="nav-link pagescroll" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#how-it-works">How It Works</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#our-pricings">Plan</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#our-apps">Download</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#our-blog">Blogs</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#aboutus">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link pagescroll" href="#contactus">contact</a>
+                  </li>
+               </ul>
+            </nav>
+
+            <div class="side-footer w-100">
+               <ul class="social-icons-simple white top40">
+                  <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
+                  <li><a href="javascript:void(0)"><i class="fa fa-instagram"></i> </a> </li>
+                  <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i> </a> </li>
+               </ul>
+               <p class="whitecolor">&copy; 2020 BharatCall.</p>
+            </div>
+         </div>
+      </div>
+      <a id="close_side_menu" href="javascript:void(0);"></a>
+      <!-- End side menu -->
+   </header>
+   <!-- header -->
+
+   <!-- My New Slider -->
+   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+         <!-- new images end -->
+         <div class="carousel-item active">
+            <img class="d-block w-100" src="project_images/img1.png" alt="First slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img2.png" alt="Second slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img3.png" alt="Third slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img4.png" alt="fourth slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img5.png" alt="fifth slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img6.png" alt="fifth slide">
+         </div>
+         <!-- new images end -->
+         <!-- <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img11.png" alt="fifth slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img22.png" alt="fifth slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img33.png" alt="fifth slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img44.png" alt="fifth slide">
+         </div>
+         <div class="carousel-item">
+            <img class="d-block w-100" src="project_images/img55.png" alt="fifth slide">
+         </div> -->
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+         <span aria-hidden="true"><img src="project_images/left.svg" style="width: 50px;"></span>
+         <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+         <span class="" aria-hidden="true"><img src="project_images/right.svg" style="width: 50px;"></span>
+         <span class="sr-only">Next</span>
+      </a>
+   </div>
+   <!-- My New Slider ends -->
+  
+<!-- Work Process -->
+   <section class="padding_top half-section bglight" id="how-it-works">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+               <div class="heading-title">                
+                  <h2 class="darkcolor bottom30">How It Works ?</h2>
+               </div>
+            </div>
+            <div class="col-lg-12 nopadding">
+               <div class="image img-container">
+                  <img alt="" src="project_images/how.png" class="equalheight">
+               </div>
+            </div>           
+         </div>
+      </div>
+   </section>
+
+   <!--FAQ section-->
+   <section class="half-section top30" id="faq">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+               <div class="heading-title">
+                  <h2 class="darkcolor bottom10">FAQ</h2>
+                  <!-- <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. </p>           -->
+               </div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+               <div>
+                  <video class="android_app_size" poster="/project_images/thumbnil.png" controls autoplay>
+                     <source src="video/Bharatcall.mp4" type="video/mp4">
+                  </video>
+               </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6 nopadding">
+               <div id="accordion" style="margin: 10px;">
+                  <div class="card">
+                     <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                           <button class="btn faq collapsed faq_qun" data-toggle="collapse" data-target="#collapseOne"
+                              aria-expanded="true" aria-controls="collapseOne"
+                              style="text-align: left;width: -webkit-fill-available;width: -moz-available;">
+                              <i class="fa i_plus" aria-hidden="true"></i>
+                              What is Bharat Call App and what benefits do I get from it?
+                           </button>
+                        </h5>
+                     </div>
+                     <div id="collapseOne" class="collapse ex4" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                           Bharat Call App gives you following opportunities as a registered user:
+                           <ol style="list-style: decimal; padding-left: 15px;">
+                              <li>to showcase your professional And OR Business profile to the callers</li>
+                              <li>E-Visiting Card will be auto created for you for sharing it with your
+                                 consumers/customers</li>
+                              <li>to share your professional And OR Business profile with friends & family via whatsapp
+                                 and email</li>
+                              <li>to also invite Family & Friends to register on Bharat Call application to avail the
+                                 above benefits</li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card" style="margin-top: 10px;">
+                     <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                           <button class="btn faq collapsed faq_qun" data-toggle="collapse" data-target="#collapseTwo"
+                              aria-expanded="false" aria-controls="collapseTwo"
+                              style="text-align: left;width: -webkit-fill-available;width: -moz-available;">
+                              <i class="fa i_plus" aria-hidden="true"></i>
+                              Is Bharat Call App available for non BSNL users too?
+                           </button>
+                        </h5>
+                     </div>
+                     <div id="collapseTwo" class="collapse ex4" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                           <ol style="list-style: decimal; padding-left: 15px;">
+                              <li>Yes, <a href="#our-pricings" style="text-decoration: underline;">click here</a> for
+                                 more details</li>
+                              <li><a href="#our-apps" style="text-decoration: underline;">Click here</a> to download and
+                                 get started</li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card" style="margin-top: 10px;">
+                     <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                           <button class="btn faq collapsed faq_qun" data-toggle="collapse" data-target="#collapseThree"
+                              aria-expanded="false" aria-controls="collapseThree"
+                              style="text-align: left;width: -webkit-fill-available;width: -moz-available;">
+                              <i class="fa i_plus" aria-hidden="true"></i>
+                              What is a Bharat Call App Profile?
+                           </button>
+                        </h5>
+                     </div>
+                     <div id="collapseThree" class="collapse ex4" aria-labelledby="headingThree"
+                        data-parent="#accordion">
+                        <div class="card-body">
+                           It's business information which registered user would like to display to the callers and
+                           people searching for them on Bharat Call app/Bharat Pages
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card" style="margin-top: 10px;">
+                     <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                           <button class="btn faq collapsed faq_qun" data-toggle="collapse" data-target="#collapseFour"
+                              aria-expanded="false" aria-controls="collapseThree"
+                              style="text-align: left;width: -webkit-fill-available;width: -moz-available;">
+                              <i class="fa i_plus" aria-hidden="true"></i>
+                              How does Bharat Call App help me reach more customers?
+                           </button>
+                        </h5>
+                     </div>
+                     <div id="collapseFour" class="collapse ex4" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                           Bharat Call App helps to promote business by displaying their website, business web page to
+                           the callers and to people searching for services on Bharat Pages.
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card" style="margin-top: 10px;">
+                     <div class="card-header" id="headingFive">
+                        <h5 class="mb-0">
+                           <button class="btn faq collapsed faq_qun" data-toggle="collapse" data-target="#collapseFive"
+                              aria-expanded="true" aria-controls="collapseOne"
+                              style="text-align: left;width: -webkit-fill-available;width: -moz-available;">
+                              <i class="fa i_plus" aria-hidden="true"></i>
+                              What’s the difference between Bharat Call App and social media like <br>FaceBook,
+                              Instagram, WhatsApp, YellowPages, Just Dial, etc.?
+                           </button>
+                        </h5>
+                     </div>
+                     <div id="collapseFive" class="collapse ex4" aria-labelledby="headingFive" data-parent="#accordion">
+                        <div class="card-body">
+                           <ol style="list-style: decimal; padding-left: 15px;">
+                              <li>User can select Business Profile, Personal Profile or Social Media Profile on the
+                                 Bharat Call App which they want to display to the callers</li>
+                              <li>Saves time as Caller get details of Business even before connecting</li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div style="text-align: right;">
+                  <a href="faq.html" class="button fontmedium top20 read_more">Read More FAQ's &nbsp;<i
+                        class="fa fa-arrow-circle-o-right" aria-hidden="true" style="font-size: 15px;"></i></a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Plan -->
+   <section id="our-pricings" class="padding bglight">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+               <div class="heading-title">
+                  <span>Choose The Best One</span>
+                  <h2 class="darkcolor bottom10">Plan</h2>
+                  <!-- <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. </p> -->
+               </div>
+            </div>
+         </div>
+         <div class="col-12">            
+            <div class="table-responsive">
+               <table class="table table-striped text-center w-auto">
+                  <thead>
+                     <tr>
+                        <th scope="col" class="text-white th-sm " style="background-color:#e4611f;">Plan<p>Subscription</p>
+                        </th>
+                        <th scope="col" class="text-white th-sm " style="background-color:#e58724;">Free<p>All Subscriber</p>
+                        </th>
+                        <th scope="col" class="text-white th-sm " style="background-color:#52AD0A;">Unlimited Plan<p>BSNL Subscriber</p>
+                        </th>
+                        <th scope="col" class="text-white th-sm " style="background-color:#1b83af;">Unlimited Plan<p>Other
+                              Carrier Subscriber</p>
+                        </th>
+                     </tr>                  
+                     <tr>
+                        <th scope="col" class="text-white h2 th-sm " style="background-color:#f87933;">Detailed <br>Features</th>
+                        <th scope="col" class="text-white h1 th-sm " style="background-color:#fea836;"><i class="fa fa-inr" aria-hidden="true"></i> 0 <span class="h6 d-block">per month</span></th>
+                        <th scope="col" class="text-white h1 th-sm " style="background-color:#6DC826;"><i class="fa fa-inr" aria-hidden="true"></i> 15 <span class="h6 d-block">per month</span></th>
+                        <th scope="col" class="text-white h1 th-sm " style="background-color:#2e91c3;"><i class="fa fa-inr" aria-hidden="true"></i> 25 <span class="h6 d-block">per month</span></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <th scope="row" class="th_style">Create website or link your existing website, social media
+                           profile to display to the caller. </th>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Generate e-visiting card and share it to promote their
+                           business.</th>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Display your website to callers. Caller can view content on
+                           their mobile phone screen</th>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Include your business on Bharat Call Digital Diary and promote
+                           your products/services globally.</th>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Upload upto 3 products under Professional Theme</th>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                        <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Upload Unlimited products under Professional Theme along with
+                           Product & video gallery and option to Bulk upload </th>
+                        <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                        <td><strong>Future release</strong></td>
+                        <td><strong>Future release</strong></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Landline/Toll Free configuration (send otp on mobile)</th>
+                        <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                        <td><strong>Future release</strong></td>
+                        <td><strong>Future release</strong></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Calendar Integration</th>
+                        <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                        <td><strong>Future release</strong></td>
+                        <td><strong>Future release</strong></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Payment Gateway integration</th>
+                        <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                        <td><strong>Future release</strong></td>
+                        <td><strong>Future release</strong></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" class="th_style">Complete E Commerce Solution</th>
+                        <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                        <td><strong>Future release</strong></td>
+                        <td><strong>Future release</strong></td>
+                     </tr>
+                     <tr>
+                        <th scope="row" style="background: #dee2e6;" class="h5 d-block py-4 mb-0">Get Started</th>
+                        <td class="p-0" style="background-color: #e4611f;"><a href=""
+                              class="link-hover1 text-white h5 w-100 d-block py-4 mb-0">Buy Now</a></td>
+                        <td class="p-0" style="background-color: #52AD0A;"><a href=""
+                              class="link-hover2 text-white h5 w-100 d-block py-4 mb-0">Buy Now</a></td>
+                        <td class="p-0" style="background-color: #1b83af;"><a href=""
+                              class="link-hover3 text-white h5 w-100 d-block py-4 mb-0">Buy Now</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- Counter -->
+   <!-- <section id="funfacts" class="padding_top fact-iconic gradient_bg">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-5 col-sm-12 margin_bottom whitecolor text-md-left text-center">
+               <h3 class="bottom25">Our many years of experience in numbers</h3>
+               <p class="title">We show you our professional achievements in numbers, which show the acquired skills and
+                  trust of many clients.</p>
+            </div>
+            <div class="col-md-7 col-sm-12 text-center">
+               <div class="row">
+                  <div class="col-md-4 col-sm-4 icon-counters whitecolor margin_bottom">
+                     <div class="img-icon bottom15">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                     </div>
+                     <div class="counters">
+                        <span id="visit_count" style="font-size: 1.875rem;font-weight: bold;display: inline-block;">
+                        </span> <i class="fa fa-plus"></i>                       
+                     </div>
+                     <p class="title">Visits</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 icon-counters whitecolor margin_bottom">
+                     <div class="img-icon bottom15">
+                        <i class="fa fa-desktop"></i>
+                     </div>
+                     <div class="counters">
+                        <span class="" id="registered_count"
+                           style="font-size: 1.875rem;font-weight: bold;display: inline-block;"></span><i
+                           class="fa fa-plus"></i>                        
+                     </div>
+                     <p class="title">Registered Users</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section> -->
+ 
+   <!--Download ends-->
+
+   <!-- Testimonials -->
+   <div class="container-fluid bglight" id="our-testimonial">
+      <div class="row">
+         <div class="col-md-12 col-sm-12">
+            <div class="split-box text-center center-block equalheight container-padding">
+               <div class="heading-title my-padding">
+                  <h2 class="darkcolor bottom25">Testimonials</h2>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <section id="our-testimonial1" class="padding testimonial-bg-light">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-sm-12">
+               <div id="testimonial-quote-nav" class="owl-carousel no-quote">
+                  <div class="item">
+                     <div class="row">
+                        <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+                           <div class="testimonial-quote darkcolor">
+                              <h3 class="bottom30 font-xlight">Bharat Call not just automates our Internal Process, it
+                                 also creates a digital presence for our members business at a very affordable monthly
+                                 cost of Rs.15 -Rs.25. Our members business website will be displayed on their customers
+                                 mobile screen.</h3>
+                              <h6>Priti Priyadarshi</h6>
+                              <small>Chariman, Sakhi Cooperative Credit and Supply Society Ltd</small>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="row">
+                        <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+                           <div class="testimonial-quote darkcolor">
+                              <h3 class="bottom30 font-xlight">Our Vision is to alleviate poverty & to create a
+                                 harmonious, healthy, peaceful and prosperous society.
+                                 Our Mission is to empower Women and uplift all members of the society.</h3>
+                              <!-- <h6>Jack Kaclics</h6>
+                     <small>Designer, BharatCall</small> -->
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="row">
+                        <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+                           <div class="testimonial-quote darkcolor">
+                              <h3 class="bottom30 font-xlight">Bharat Call made it very convenient and easy for our
+                                 members to enroll and manage their account under “PM Street Vendor atmanirbhar nidhi -
+                                 PM SVANidhi Scheme of Sakhi - Sanjeevani” using their mobile phone.</h3>
+                              <!-- <h6>Stephen Jhon</h6>
+                     <small>CEO, BharatCall</small> -->
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="row">
+                        <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+                           <div class="testimonial-quote darkcolor">
+                              <h3 class="bottom30 font-xlight">In order to serve the customers stuck at home during the
+                                 pandemic I was looking for economical yet personalized online presence for my business.
+                                 With the help of Bharat Call I was able to build my own website in minutes. My
+                                 customers who were wanting to know more about my business and services I provide before
+                                 calling me got all the information about services I offer, promotions, hours of
+                                 operations, payment options, making appointments for repairs, customer reviews, etc.
+                                 The added bonus was the e-visiting card that Bharat Call is able to generate
+                                 automatically which I am able to share with all my customers. Use of Bharat Call helped
+                                 me with more customer inquiries and take away the burden of business operations.</h3>
+                              <h6>Sanjay Shah</h6>
+                              <small>A certified home-appliance repair shop</small>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="row">
+                        <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+                           <div class="testimonial-quote darkcolor">
+                              <h3 class="bottom30 font-xlight">I am really amazed with how my details are displayed to
+                                 my callers. I was able to set up my profile and product page very quickly and now I
+                                 have started catering to my clients online and take payment online. Thanks to the
+                                 Bharat Call team for their wonderful technology.</h3>
+                              <h6>Sanveej Chhatbar</h6>
+                              <small>Manufacturing of Sunglasses</small>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--Testimonials Ends-->
+
+   <!-- Our Blogs -->
+   <section id="our-blog" class="half-section bglight">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-12 col-sm-12">
+               <div class="split-box text-center center-block equalheight container-padding">
+                  <div class="heading-title padding_half">
+                     <!-- <span>Read Our News</span> -->
+                     <h2 class="darkcolor">Latest Blog Post</h2>
+                     <!-- <p class="heading_space">Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. Nam porttitor justo sed mi finibus, vel tristique risus faucibus. </p> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container">
+         <div id="blog-measonry" class="cbp">
+            <div class="cbp-item">
+               <div class="news_item shadow">
+                  <a class="image" href="Marketing_Strategies_For_Small_Business.html">
+                     <img src="project_images/blog1.png" alt="Latest News" class="img-responsive">
+                  </a>
+                  <div class="news_desc">
+                     <h3 class="text-capitalize font-light darkcolor"><a
+                           href="Marketing_Strategies_For_Small_Business.html">Marketing Strategies For Small
+                           Business</a></h3>
+
+                     <p class="bottom35 top20">A good salesperson understands the process, celebrates on receiving the
+                        consumer trust, anticipates customer needs, makes good numbers, and urges to become recognized
+                        as the authority in the field ...</p>
+                     <div style="text-align: right;">
+                        <a href="Marketing_Strategies_For_Small_Business.html" class="button read_more"
+                           style="text-transform: none;">Read More &nbsp;<i class="fa fa-arrow-circle-o-right"
+                              aria-hidden="true" style="font-size: 15px;"></i></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="cbp-item">
+               <div class="news_item shadow">
+                  <a class="image" href="Mobile_apps_usage_spikes_in_lockdown.html">
+                     <img src="project_images/blog2.png" alt="Latest News" class="img-responsive">
+                  </a>
+                  <div class="news_desc">
+                     <h3 class="text-capitalize font-light darkcolor"><a
+                           href="Mobile_apps_usage_spikes_in_lockdown.html">Mobile apps’ usage spikes in lockdown</a>
+                     </h3>
+
+                     <p class="bottom35 top20">Take for instance Asmita Gupta, a teacher in Delhi, who installed two new
+                        grocery apps to get essentials at her doorstep as the lockdown was imposed. She said she has got
+                        essentials from ...</p>
+                     <div style="text-align: right;">
+                        <a href="Mobile_apps_usage_spikes_in_lockdown.html" class="button read_more"
+                           style="text-transform: none;">Read More &nbsp;<i class="fa fa-arrow-circle-o-right"
+                              aria-hidden="true" style="font-size: 15px;"></i></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="cbp-item">
+               <div class="news_item shadow">
+                  <a class="image" href="Working_from_home_during_coronavirus.html">
+                     <img src="project_images/blog3.png" alt="Latest News" class="img-responsive">
+                  </a>
+                  <div class="news_desc">
+                     <h3 class="text-capitalize font-light darkcolor"><a
+                           href="Working_from_home_during_coronavirus.html">COVID-19: WFH during coronavirus</a></h3>
+
+                     <p class="bottom35 top20">If you’d like a more in-depth guide to remote working, join the Institute of Coding and University of Leeds’ program on Collaboration, Communication and Remote Working ...</p>
+                     <div style="text-align: right;">
+                        <a href="Working_from_home_during_coronavirus.html" class="button read_more"
+                           style="text-transform: none;">Read More &nbsp;<i class="fa fa-arrow-circle-o-right"
+                              aria-hidden="true" style="font-size: 15px;"></i></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="split-box center-block equalheight container-padding" style="text-align: right;">
+         <div class="heading-title" style="padding: 1rem 0;">
+            <!-- <a href="blog.html" class="button btnsecondary">Read More Blogs</a> -->
+            <a href="blog.html" class="button read_more">Read More Blogs &nbsp;<i class="fa fa-arrow-circle-o-right"
+                  aria-hidden="true" style="font-size: 15px;"></i></a>
+         </div>
+      </div>
+   </section>
+   <!--Our Blogs Ends-->
+
+   <!-- About Us -->
+   <div id="aboutus" class="bglight" style="padding: 1rem 0;">&nbsp;</div>
+   <section class="padding_top half-section">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+               <div class="heading-title">                
+                  <h2 class="darkcolor bottom30">About Us</h2>
+               </div>
+            </div>
+            <div class="col-lg-6 nopadding">
+               <div class="image img-container">
+                  <img alt="" src="project_images/About us.png" class="equalheight">
+               </div>
+            </div>
+            <div class="col-lg-6 nopadding">
+               <div class="split-box text-center container-padding equalheight">
+                  <div class="heading-title wow fadeInUp" data-wow-delay="400ms"> 
+                     <p class="top5" style="text-align: justify;">BharatCall’s mission is to create equal opportunities for all, irrespective of
+                        socio-economic status and remove digital barriers. Introducing all to a common digital platform
+                        thus helping everyone to be empowered and be Self-Reliant, therefore working towards making
+                        India digitally Aatmanirbhar</p>                   
+                     <p class="top5" style="text-align: justify;"><b>Bharat Call is a Unique Digital Platform</b> which enables every Individual / Business
+                        owner to have their <b>online presence in less than 1 minute.</b> If you are a <b>Sole Proprietor,
+                           Entrepreneur, Professional, MSMEs</b> or <b>a Large Enterprise.</b> </p>
+                     <p style="text-align: justify;">Stay ahead digitally with Bharat Call:</p>
+                     <ul class="ul_style">
+                        <li class="li_style">Bharat call promotes local business to local and global customers.</li>
+                        <li class="li_style">Showcase individual or business profile to the callers.</li>
+                        <li class="li_style">Be part of digital diary of Bharat call to spread your business across borders.</li>
+                        <li class="li_style">Get in touch with your customers directly.</li>
+                     </ul>
+                     <p class="top5" style="text-align: justify;">BharatCall team is on a mission to make every Indian digitally Atmanirbhar <span><strong>डिजिटली आत्मनिर्भर भारत</strong></span>
+                        </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- About Us Ends -->
+
+   <!-- Our Team -->
+   <section id="our-team-two" class="padding bglight">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+               <div class="heading-title">
+                  <!-- <span>Heros Behind the Company</span> -->
+                  <h2 class="darkcolor bottom10">Meet Our Team</h2>
+                  <!-- <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. Nam porttitor justo sed mi finibus, vel tristique risus faucibus. </p> -->
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/Smit Shah.png" alt="" data-toggle="modal" data-target="#SmitShah" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;" >
+                     <h4 data-toggle="modal" data-target="#SmitShah" style="cursor: pointer;">Smit Shah</h4>
+                     <p class="nomargin">Founder</p>
+                     <p data-toggle="modal" data-target="#SmitShah" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>                 
+               </div>
+            </div>
+            <!-- card deyails -->
+            <!-- The Modal -->
+            <div class="modal team_model" id="SmitShah" >
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Smit Shah</h4>                       
+                        <button type="button" class="close" data-dismiss="modal">×</button>                                         
+                     </div>                    
+                     <!-- Modal body -->
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">FICWA and a seasoned business executive with more than 23 years of leadership and cross functional experience. He holds positions in different professional environments including multinational corporations, Indian conglomerates and new generation start-up ventures as well as across a range of industries including Telecom, Technology & Pharmaceutical. </p>
+                     </div>                     
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/Himanshu Kansara.png" alt="" data-toggle="modal" data-target="#himanshukansara" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;">
+                     <h4 data-toggle="modal" data-target="#himanshukansara" style="cursor: pointer;">Himanshu Kansara</h4>
+                     <p class="nomargin">Founder</p>
+                     <p data-toggle="modal" data-target="#himanshukansara" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>                  
+               </div>
+            </div>
+            <!-- The Modal -->
+            <div class="modal team_model" id="himanshukansara">
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Himanshu Kansara</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">A silicon valley based innovator and entrepreneur with over 25 years in business leadership. Experienced in all aspects of business formation, product engineering, operation, finance, and management. Visionary business builder who understand how to maximize value with early stage, growth stage and at large companies.  Deep experience in developing products to disrupt the worlds of commerce, health and wellness, and innovative consumer oriented platforms using augmented reality, and blockchain. Lifelong learner committed to staying on top of the best current and emerging business practices, especially in a global context. Effective communicator and motivator who identifies and leverages assets in teammates to reach organizational goals. Relentless optimist who believes there is no failure, only feedback. Attentive listener who is not afraid to incorporate the opinions of valued team members into policy and planning.</p>
+                     </div>                     
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/Bhumika Desai.png" alt="" data-toggle="modal" data-target="#BhumikaDesai" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;">
+                     <h4 data-toggle="modal" data-target="#BhumikaDesai" style="cursor: pointer;">Bhumika Desai</h4>
+                     <p class="nomargin">Additional Director, Product Management</p>
+                     <p data-toggle="modal" data-target="#BhumikaDesai" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>
+               </div>
+            </div>
+            <!-- The Modal -->
+            <div class="modal team_model" id="BhumikaDesai">
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Bhumika Desai</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">Ms. Bhumika Desai has joined us as Director - Product Management since August 26, 2020. She holds a Master’s degree in Management (MBA) from Institute for Technology and Management (ITM) and a Bachelor’s degree in Commerce (Banking & Insurance).</p>
+                        <p style="text-align: justify;">She is an industry expert with more than 12 years of successful experience in digital product management with proven expertise in building products from scratch that help businesses transform their traditional offline services into full-blown digital platforms boasting of capabilities that are always ahead of its competitors.
+                           She has dabbed multiple roles in MIS, Lead generation & Product management & has a knack in bringing exponential growth to businesses through her determination & dedication.
+                           She has previously worked with Justdial Ltd
+                           </p>
+                     </div>                     
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/Sandeep.png" alt="" data-toggle="modal" data-target="#Sandeep" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;">
+                     <h4 data-toggle="modal" data-target="#Sandeep" style="cursor: pointer;">Sandeep</h4>
+                     <p class="nomargin">Business Advisor, Digital Marketing</p>
+                     <p data-toggle="modal" data-target="#Sandeep" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>
+               </div>
+            </div>
+             <!-- The Modal -->
+             <div class="modal team_model" id="Sandeep">
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Sandeep</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">Sandeep combines the understanding of emerging technologies & digital platforms, experience in VAS, telecom and mobility space and passion towards clean mobility to drive innovative solutions in the EV charging ecosystem, Home Automation & ESCO verticals in Tata Power.</p>
+                        <p style="text-align: justify;">Electrical Engineer from VJTI, MBA from NMIMS. Worked in consumer durables and telecom for Carrier Aircon, Tata Teleservices, Reliance Communications and Idea Cellular. Have worked extensively across the spectrum in the Telecom domain - Products, Sales, VAS, Digital Media etc.</p>
+                        <p style="text-align: justify;">Dabbled with entrepreneurship and start-up ideas for a while before joining TATA Power</p>
+                        <p style="text-align: justify;">Off work, I write about any topic close to my heart, cook for my daughters, watch movies and indulge in endurance swimming, running and cycling. Wanted to do an Ironman 70.3 in 2020 .. but will get pushed.</p>
+                     </div>                     
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-1.5 col-md-1 d-flex"></div>
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/Shankar Pandey.png" alt="" data-toggle="modal" data-target="#ShankarPandey" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;">
+                     <h4 data-toggle="modal" data-target="#ShankarPandey" style="cursor: pointer;">Shankar Pandey</h4>
+                     <p class="nomargin">Business Advisor, PR & Government Business</p>
+                     <p data-toggle="modal" data-target="#ShankarPandey" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>
+               </div>
+            </div>
+             <!-- The Modal -->
+             <div class="modal team_model" id="ShankarPandey">
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Shankar Pandey</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">Sandeep combines the understanding of emerging technologies & digital platforms, experience in VAS, telecom and mobility space and passion towards clean mobility to drive innovative solutions in the EV charging ecosystem, Home Automation & ESCO verticals in Tata Power.</p>
+                        <p style="text-align: justify;">Electrical Engineer from VJTI, MBA from NMIMS. Worked in consumer durables and telecom for Carrier Aircon, Tata Teleservices, Reliance Communications and Idea Cellular. Have worked extensively across the spectrum in the Telecom domain - Products, Sales, VAS, Digital Media etc.</p>
+                        <p style="text-align: justify;">Dabbled with entrepreneurship and start-up ideas for a while before joining TATA Power</p>
+                        <p style="text-align: justify;">Off work, I write about any topic close to my heart, cook for my daughters, watch movies and indulge in endurance swimming, running and cycling. Wanted to do an Ironman 70.3 in 2020 .. but will get pushed.</p>
+                     </div>                     
+                  </div>
+               </div>
+            </div>           
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/p1.png" alt="" data-toggle="modal" data-target="#Kshitij" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;">
+                     <h4 data-toggle="modal" data-target="#Kshitij" style="cursor: pointer;">Kshitij</h4>
+                     <p class="nomargin">Product Manager</p>
+                     <p data-toggle="modal" data-target="#Kshitij" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>
+               </div>
+            </div>    
+               <!-- The Modal -->
+             <div class="modal team_model" id="Kshitij">
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">                   
+                     <div class="modal-header">
+                        <h4 class="modal-title">Kshitij</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                     </div>                    
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">Kshitij is an Entrepreneur cum product manager by profession. He has led large projects including Digital gold, Mutual funds, UPI powered bill payments and AI based customer support system for Reliance Jio. Kshitij set-up the first data lake at OYO Rooms from scratch which continues to power dynamic pricing, personalisation and various other ML algorithms.</p>
+                        <p style="text-align: justify;">He founded and scaled ZeoAuto to 105+ countries powering last mile deliveries for 50k courier drivers who have so far delivered 5 million parcels. Prior to this, Kshitij had founded and scaled Aboard Offices to over 700+ offices across India.</p>
+                        <p style="text-align: justify;">Kshitij is a B.Tech and Mtech. by graduation from IIT Kharagpur with specialisation in Electronics and Communications and a minor in computer science.</p>                        
+                     </div>                     
+                  </div>
+               </div>
+            </div>      
+            <div class="col-lg-3 col-md-3 d-flex">
+               <div class="team-box grey-shade top60">
+                  <div class="image">
+                     <img src="project_images/p2.png" alt="" data-toggle="modal" data-target="#Ritesh" style="cursor: pointer;">
+                  </div>
+                  <div class="team-content darkcolor" style="text-align: left;">
+                     <h4 data-toggle="modal" data-target="#Ritesh" style="cursor: pointer;">Ritesh</h4>
+                     <p class="nomargin">Business Advisor, PR & Government Business</p>
+                     <p data-toggle="modal" data-target="#Ritesh" style="cursor: pointer;color: #3BAD04;font-size: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></p>
+                  </div>                 
+               </div>
+            </div>
+              <!-- The Modal -->
+              <div class="modal team_model" id="Ritesh">
+               <div class="modal-dialog">
+                  <div class="modal-content" style="background-color: #F6F6F6;">                   
+                     <div class="modal-header">
+                        <h4 class="modal-title">Ritesh</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                     </div>                    
+                     <div class="modal-body">                        
+                        <p style="text-align: justify;">Kshitij is an Entrepreneur cum product manager by profession. He has led large projects including Digital gold, Mutual funds, UPI powered bill payments and AI based customer support system for Reliance Jio. Kshitij set-up the first data lake at OYO Rooms from scratch which continues to power dynamic pricing, personalisation and various other ML algorithms.</p>
+                        <p style="text-align: justify;">He founded and scaled ZeoAuto to 105+ countries powering last mile deliveries for 50k courier drivers who have so far delivered 5 million parcels. Prior to this, Kshitij had founded and scaled Aboard Offices to over 700+ offices across India.</p>
+                        <p style="text-align: justify;">Kshitij is a B.Tech and Mtech. by graduation from IIT Kharagpur with specialisation in Electronics and Communications and a minor in computer science.</p>                        
+                     </div>                     
+                  </div>
+               </div>
+            </div>            
+         </div>
+      </div>
+   </section>
+
+   <!-- Mobile App -->
+   <section class="half-section padding_top " id="our-apps">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+               <div class="heading-title">                
+                  <h2 class="darkcolor bottom30">Download App</h2>
+               </div>
+            </div>
+            <div class="col-lg-6 nopadding">
+               <div class="image img-container">
+                  <img alt="" src="project_images/app_bg.png" class="equalheight">
+               </div>
+            </div>
+            <div class="col-lg-6 nopadding">
+               <div class="split-box text-center center-block container-padding equalheight">
+                  <div class="heading-title padding wow fadeInUp" data-wow-delay="400ms">
+                     <span>Don't miss our Apps</span>
+                     <!-- <h2 class="darkcolor">Life's become more easier</h2> -->
+                     <p class="darkcolor top10">Download our mobile app and order from anywhere, and it's free </p>
+                     <a class="button top10" href="#."><img src="project_images/google-play-badge.svg"
+                           alt="G-play store" class="btn_style"></i></a> &nbsp;
+                     <a class="button top10" href="#."><img src="project_images/IOS.svg" alt="iOS-play store"
+                           class="btn_style"></i></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- Mobile App Ends -->
+
+   <!-- Contact US -->
+   <section id="contactus" class="padding_top bglight">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-sm-12">
+               <div class="heading-title heading_space_contact text-center">                 
+                  <h2 class="darkcolor">Get In Touch</h2>                 
+               </div>
+               <div class="heading-title">
+                  <h4 class="darkcolor top10">NEEKS & HANKS SOLUTIONS PRIVATE LIMITED</h4>
+               </div>
+            </div>
+            <div class="col-md-6 col-sm-12 margin_bottom top10">
+               <!-- <p>West is not just about graphic design; it's more than that. We offer integral communication services, and we're responsible for our process and results. We thank each client and their projects.</p> -->
+               <div class="row">
+                  <div class="col-md-6 col-sm-6 our-address top40">
+                     <h5 class="bottom25">Sales Number</h5>
+                     <i class="fa fa-phone" style="font-size:20px; color: #3BAD04;"></i>
+                     <!-- <p class="bottom15">001 01085379709 <span class="block">   -->
+                     <a href="#" style="color: #007bff;">001 01085379709</a>
+                     </span> </p>
+                     <!-- <a class="pickus" href="#." data-text="Call Us">Call Us</a> -->
+                  </div>
+                  <div class="col-md-6 col-sm-6 our-address top40">
+                     <h5 class="bottom25">Business Email</h5>
+                     <i class="fa fa-envelope" style="font-size:20px; color: #3BAD04;"></i>
+                     <a href="mailto:support@bharatcall.com" style="color: #007bff;">support@bharatcall.com</a>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 col-sm-12 margin_bottom top10">
+               <form class="getin_form wow fadeInUp" data-wow-delay="400ms" onsubmit="return false;">
+                  <div class="row">
+                     <div class="col-sm-12" id="result"></div>
+                     <div class="col-md-6 col-sm-6">
+                        <div class="form-group bottom20">
+                           <input class="form-control" style="background-color: #f6f6f6;" type="text"
+                              placeholder="First Name: *" required id="first_name" name="first_name">
+                        </div>
+                     </div>
+                     <div class="col-md-6 col-sm-6">
+                        <div class="form-group bottom20">
+                           <input class="form-control" style="background-color: #f6f6f6;" type="text"
+                              placeholder="Last Name: *" required id="last_name" name="last_name">
+                        </div>
+                     </div>
+                     <div class="col-md-6 col-sm-6">
+                        <div class="form-group bottom20">
+                           <input class="form-control" style="background-color: #f6f6f6;" type="email"
+                              placeholder="Email: *" required id="email" name="email">
+                        </div>
+                     </div>
+                     <div class="col-md-6 col-sm-6">
+                        <div class="form-group bottom20">
+                           <input class="form-control" style="background-color: #f6f6f6;" type="tel"
+                              placeholder="Phone: *" id="phone" name="phone" required>
+                        </div>
+                     </div>
+                     <div class="col-md-12 col-sm-12">
+                        <div class="form-group bottom20">
+                           <input class="form-control" style="background-color: #f6f6f6;" type="text"
+                              placeholder="Organisation: *" id="organisation_name" name="organisation_name" required>
+                        </div>
+                     </div>
+                     <div class="col-md-12 col-sm-12">
+                        <div class="form-group bottom20">
+                           <textarea class="form-control" style="background-color: #f6f6f6;" placeholder="Comment: *"
+                              id="message" name="message" required></textarea>
+                        </div>
+                     </div>
+                     <div class="col-md-2"></div>
+                     <div class="col-md-6 col-sm-6" style="margin-bottom: 1rem;">
+                        <div class="g-recaptcha" data-sitekey="6LfjI9UZAAAAAP4SqoxxMvBp8p_F5t9gUpeFIQLM"
+                           data-callback="verifyCaptcha"></div>
+                     </div>
+                     <div class="row text-center invalid_captcha" style="font-size:15px;display:none">
+                        <div class="col-md-12 col-sm-12 text-danger">
+                           Could not send mail! Please check your JS mail configuration
+                        </div>
+                     </div>
+                     <div class="row text-center success_captcha" style="font-size:15px;display:none">
+                        <div class="col-md-12 col-sm-12 text-success">
+                           Thank you for contacting us
+                        </div>
+                     </div>
+                     <div class="col-sm-12">
+                        <button type="submit" class="button btnprimary" id="submit_btn" disabled>submit request</button>
+                     </div>
+                  </div>
+               </form>
+               <script src='https://www.google.com/recaptcha/api.js'></script>
+            </div>
+         </div>
+      </div>
+      <!--Location Map here-->
+      <!-- <div id="map-container"></div>    -->
+   </section>
+   <!--Contact US Ends-->
+
+   <!-- Footer -->
+   <footer class="page-footer font-small indigo" style="background-color: #393B4A; color:white">
+      <div id="site-footer" class="container text-center text-md-left footer_css" style="padding-bottom: 10px;">
+         <div class="row">
+            <div class="col-md-3 footer-styling">
+               <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Company</h5>
+               <ul class="list-unstyled">
+                  <li class="footer-menu">
+                     <a href="#how-it-works">How It Works</a>
+                  </li>
+                  <li class="footer-menu"> 
+                     <a href="#our-apps">Download</a>
+                  </li>
+                  <li class="footer-menu">
+                     <a href="#our-testimonial">Testimonials</a>
+                  </li>
+                  <li class="footer-menu">
+                     <a href="#our-blog">Blogs</a>
+                  </li>
+                  <li class="footer-menu">
+                     <a href="#aboutus">About Us</a>
+                  </li>
+               </ul>
+            </div>
+            <!-- Grid column -->
+            <!-- <hr class="clearfix w-100 d-md-none">  -->
+            <!-- Grid column -->
+            <div class="col-md-3 footer-styling">
+               <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Download</h5>
+               <ul class="list-unstyled">
+                  <li class="footer-menu">
+                     <a href="#our-apps">Android</a>
+                  </li>
+                  <li class="footer-menu">
+                     <a href="#our-apps">iOS</a>
+                  </li>
+                  <li class="footer-menu">
+                     <a href="#our-pricings">Plan</a>
+                  </li>
+               </ul>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none">
+            <!-- Grid column -->
+            <div class="col-md-3 footer-styling">
+               <!-- Links -->
+               <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Help</h5>
+               <ul class="list-unstyled">
+                  <li class="footer-menu">
+                     <a href="#faq">FAQ</a>
+                  </li>
+                  <li class="footer-menu">
+                     <a href="#contactus">Contact</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- Footer Links -->
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3 footer_css"
+         style="background-color: #212331; color: white; padding-top: 5px;">© 2020 Copyright:
+         <a href="#">BharatCall.com</a>
+      </div>
+      <!-- Copyright -->
+
+   </footer>
+   <!-- Footer -->
+
+   <!-- New captcha function -->
+   <script>
+      function verifyCaptcha() {
+         // document.getElementById('g-recaptcha-error').innerHTML = '';
+         //  document.getElementById('submit_btn').disabled = false;
+         $('#submit_btn').prop('disabled', false);
+      }
+   </script>
+   <!-- BotPenguin bot script starts here -->
+   <script id="Ym90cGVuZ3VpbkFwaQ" src="https://cdn.botpenguin.com/bot.js?apiKey=GdM6g%28-%3E%29VsCVCWo%7ED6X%3EI"
+      async></script>
+   <!-- BotPenguin bot script ends here -->
+
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="js/jquery-3.1.1.min.js"></script>
+
+   <!--Bootstrap Core-->
+   <script src="js/popper.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+
+   <!--to view items on reach-->
+   <script src="js/jquery.appear.js"></script>
+
+   <!--Equal-Heights-->
+   <script src="js/jquery.matchHeight-min.js"></script>
+
+   <!--Owl Slider-->
+   <script src="js/owl.carousel.min.js"></script>
+
+   <!--number counters-->
+   <script src="js/jquery-countTo.js"></script>
+
+   <!--Parallax Background-->
+   <script src="js/parallaxie.js"></script>
+
+   <!--Cubefolio Gallery-->
+   <script src="js/jquery.cubeportfolio.min.js"></script>
+
+   <!--FancyBox popup-->
+   <script src="js/jquery.fancybox.min.js"></script>
+
+   <!-- Video Background-->
+   <script src="js/jquery.background-video.js"></script>
+
+   <!--TypeWriter-->
+   <script src="js/typewriter.js"></script>
+
+   <!--Particles-->
+   <script src="js/particles.min.js"></script>
+
+   <!--WOw animations-->
+   <script src="js/wow.min.js"></script>
+
+   <!--Revolution SLider-->
+   <script src="js/revolution/jquery.themepunch.tools.min.js"></script>
+   <script src="js/revolution/jquery.themepunch.revolution.min.js"></script>
+   <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
+   <script src="js/revolution/extensions/revolution.extension.actions.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.carousel.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.kenburn.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.layeranimation.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.migration.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.navigation.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.parallax.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.slideanims.min.js"></script>
+   <script src="js/revolution/extensions/revolution.extension.video.min.js"></script>
+
+   <!--Google Map API-->
+   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJnKEvlwpyjXfS_h-J1Cne2fPMqeb44Mk"></script> -->
+   <script src="js/functions.js"></script>
+
+</body>
+
+</html>
